@@ -1,3 +1,6 @@
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import groovy.json.*;
 
 response.contentType = 'application/json'
@@ -12,3 +15,6 @@ builder.person {
 }
 
 out << builder
+
+Logger log = LoggerFactory.getLogger(this.getClass());
+log.info("json test");

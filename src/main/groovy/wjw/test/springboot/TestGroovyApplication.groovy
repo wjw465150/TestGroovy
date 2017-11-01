@@ -1,7 +1,9 @@
 package wjw.test.springboot
 
+import org.apache.log4j.xml.DOMConfigurator
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.web.servlet.ServletComponentScan
@@ -11,11 +13,13 @@ import org.springframework.core.env.Environment
 @SpringBootApplication
 @ServletComponentScan(basePackages=["groovy.servlet"])
 class TestGroovyApplication implements EnvironmentAware {
-	private static Logger log = LoggerFactory.getLogger(TestGroovyApplication.getClass());
 
 	private Environment env;
 
-	static void main(String[] args) {
+	@Value('${logging.config}')
+	private String loggingConfig;
+
+	public static void main(String[] args) {
 		SpringApplication.run TestGroovyApplication, args
 	}
 
@@ -31,6 +35,10 @@ class TestGroovyApplication implements EnvironmentAware {
 			System.out.println("Please set 'spring.profiles.active'");
 			System.exit(-1);
 		}
+
+		//加载Log4J配置文件
+		DOMConfigurator.configure(org.springframework.util.ResourceUtils.getURL(loggingConfig))
+		Logger log = LoggerFactory.getLogger(this.getClass());
 
 		log.info("当前ActiveProfiles:"+env.getActiveProfiles().toString());
 	}

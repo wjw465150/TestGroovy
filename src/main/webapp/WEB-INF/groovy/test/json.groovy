@@ -1,7 +1,13 @@
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.web.context.WebApplicationContext
+import org.springframework.web.context.support.WebApplicationContextUtils
 
 import groovy.json.*;
+import wjw.test.springboot.service.IUserService
+
+WebApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(context)
+IUserService us = appContext.getBean("userService")
 
 response.contentType = 'application/json'
 
@@ -14,7 +20,10 @@ builder.person {
 	["1","2"]
 }
 
-out << builder
+//out << builder
+out << us.getUser()
 
 Logger log = LoggerFactory.getLogger(this.getClass());
-log.info("json test");
+log.info("你好json test");
+
+

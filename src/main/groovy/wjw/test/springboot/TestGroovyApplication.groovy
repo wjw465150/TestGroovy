@@ -1,5 +1,7 @@
 package wjw.test.springboot
 
+import javax.servlet.annotation.WebServlet
+
 import org.apache.log4j.xml.DOMConfigurator
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +15,8 @@ import org.springframework.core.env.Environment
 
 @SpringBootApplication
 @ImportResource(locations=["file:src/main/webapp/WEB-INF/service-manage.xml"])
-@ServletComponentScan(basePackages=["groovy.servlet"])
+@ServletComponentScan(basePackages=["groovy.servlet"])  //@wjw_note 扫描@WebServlet注解的Servlet类
 class TestGroovyApplication implements EnvironmentAware {
-
-	private Environment env;
-
 	@Value('${logging.config}')
 	private String loggingConfig;
 
@@ -26,8 +25,7 @@ class TestGroovyApplication implements EnvironmentAware {
 	}
 
 	@Override
-	public void setEnvironment(Environment environment) {
-		this.env = environment;
+	public void setEnvironment(Environment env) {
 		String[] dProfiles = env.getDefaultProfiles();
 		String[] aProfiles = env.getActiveProfiles();
 

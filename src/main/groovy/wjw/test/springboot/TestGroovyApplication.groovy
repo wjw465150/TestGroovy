@@ -1,7 +1,5 @@
 package wjw.test.springboot
 
-import javax.servlet.annotation.WebServlet
-
 import org.apache.log4j.xml.DOMConfigurator
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.web.servlet.ServletComponentScan
+import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.EnvironmentAware
 import org.springframework.context.annotation.ImportResource
 import org.springframework.core.env.Environment
@@ -21,7 +20,13 @@ class TestGroovyApplication implements EnvironmentAware {
 	private String loggingConfig;
 
 	public static void main(String[] args) {
-		SpringApplication.run TestGroovyApplication, args
+		final ConfigurableApplicationContext applicationContext = SpringApplication.run(TestGroovyApplication,args)
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				applicationContext.close();
+			}
+		});
 	}
 
 	@Override

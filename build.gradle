@@ -46,10 +46,16 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-//@wjw_note 添加接受命令行参数,例如:-PappArgs="--spring.profiles.active=dev"
+//@wjw_note 添加接受JVM命令行参数,例如:-PjvmArgs="-XX:ReservedCodeCacheSize=96m -Xmx1g"
+//@wjw_note 添加接受project命令行参数,例如:-PappArgs="--spring.profiles.active=dev"
 bootRun {
+	if ( project.hasProperty('jvmArgs') ) {
+		jvmArgs = (project.jvmArgs.split("\\s+") as List)
+	}
+		
 	if(project.hasProperty("appArgs")){
 	  args(appArgs)
 	  println "Task args:"+args
 	}
 }
+

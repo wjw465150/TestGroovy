@@ -6,9 +6,6 @@ import groovy.json.*;
 WebApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(context)
 
 response.contentType = 'text/plain'
-
-
-
 out << "OK"
 
 System.out.println("request属性:");
@@ -27,3 +24,7 @@ System.out.println("getRequestURI( ):${request.getRequestURI()}");
 System.out.println("getRequestURL( ):${request.getRequestURL()}");
 System.out.println("getQueryString( ):${request.getQueryString()}");
 
+def p = request.getParameterMap().collectEntries { key, value ->
+	[key, value[0]]
+}
+System.out.println("getParameterMap():"+p);

@@ -1,3 +1,5 @@
+#Spring Boot 集成 Groovy
+
 # 1. 修改`build.gradle`文件
 用`apply plugin: 'groovy'`替换掉`apply plugin: 'java'`
 

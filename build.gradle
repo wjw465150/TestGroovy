@@ -4,7 +4,8 @@ buildscript {
 	}
 	repositories {
         mavenLocal()
-        maven{ url "http://SVN:8081/nexus/content/groups/public"}
+        //maven{ url "http://SVN:8081/nexus/content/groups/public"}
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }  //优先使用阿里的镜像
         mavenCentral()
         jcenter()
 	}
@@ -25,7 +26,8 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenLocal()
-    maven{ url "http://SVN:8081/nexus/content/groups/public"}
+    //maven{ url "http://SVN:8081/nexus/content/groups/public"}
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }  //优先使用阿里的镜像
     mavenCentral()
     jcenter()
 }
@@ -42,7 +44,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator') {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
-	compile('org.codehaus.groovy:groovy-all')
+	compile('org.codehaus.groovy:groovy-all:3.0.6')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
